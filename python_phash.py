@@ -14,9 +14,8 @@ import coloredlogs
 import imagehash
 
 logging.basicConfig()
-module_logger = logging.getLogger("pyphash")
-coloredlogs.install(level="DEBUG", fmt="%(asctime)s %(name)s %(levelname)s %(message)s")
-module_logger.setLevel(logging.DEBUG)
+module_logger = logging.getLogger("PIL.PngImagePlugin")
+module_logger.setLevel(logging.INFO)
 
 from colorama import Fore, Back, Style
 
@@ -39,8 +38,8 @@ def calc(target: str):
     """
 
     the_image = Image.open(target)
-    hash = imagehash.phash(the_image)
-    module_logger.info(f"phash: {hash}")
+    hash = imagehash.phash_simple(the_image)
+    print(f"{hash}")
 
 @cli.command("compare")
 @click.argument("target_1", required=True)
@@ -51,14 +50,14 @@ def compare(target_1: str, target_2: str):
     """
 
     image_1 = Image.open(target_1)
-    hash_1 = imagehash.phash(image_1)
-    module_logger.info(f"phash: {hash_1}")
+    hash_1 = imagehash.phash_simple(image_1)
+    print(f"phash 1: {hash_1}")
 
     image_2 = Image.open(target_2)
-    hash_2 = imagehash.phash(image_2)
-    module_logger.info(f"phash: {hash_2}")
+    hash_2 = imagehash.phash_simple(image_2)
+    print(f"phash 2: {hash_2}")
 
-    module_logger.info(f"hamming difference: {hash_2 - hash_1}")
+    print(f"hamming difference: {hash_2 - hash_1}")
 
 if __name__ == "__main__":
     sys.argv[0] = "pyphash"
