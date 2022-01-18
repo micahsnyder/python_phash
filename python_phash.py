@@ -38,7 +38,7 @@ def calc(target: str):
     """
 
     the_image = Image.open(target)
-    hash = imagehash.phash_simple(the_image)
+    hash = imagehash.phash(the_image)
     print(f"{hash}")
 
 @cli.command("compare")
@@ -50,11 +50,11 @@ def compare(target_1: str, target_2: str):
     """
 
     image_1 = Image.open(target_1)
-    hash_1 = imagehash.phash_simple(image_1)
+    hash_1 = imagehash.phash(image_1)
     print(f"phash 1: {hash_1}")
 
     image_2 = Image.open(target_2)
-    hash_2 = imagehash.phash_simple(image_2)
+    hash_2 = imagehash.phash(image_2)
     print(f"phash 2: {hash_2}")
 
     print(f"hamming difference: {hash_2 - hash_1}")
